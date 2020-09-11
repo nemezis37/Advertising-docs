@@ -44,7 +44,7 @@ The import credential ID links your Google Ads and Microsoft Advertising user cr
     > [!NOTE]
     > Each import credential ID is valid only for importing into ad accounts under the same manager account (customer) by the same user. You can import any Google Ads account permitted via the Google account credentials. 
     > This does not necessarily mean that you can import into any ad accounts that you can view in your manager account's hierarchy. In case an account is linked from another manager account for example, please take note of the account "Owner" when you get the import credential ID. The same user could import the same Google Ads account to any sibling ad account that is owned by the same parent manager account.
-    > If either the Microsoft Advertising user, Google account credentials, or "Owner" varies or changes, then you'll need to use a different import credential ID.  
+    > If either the Microsoft Advertising user, Google account credentials, or "Owner" varies or changes, then you'll need to use a different import credential ID. For details please see [Credential ID Scope](#credential-scope).  
 
 1. Use your import credential ID in the [CredentialId](../campaign-management-service/googleimportjob.md#credentialid) element of a [GoogleImportJob](../campaign-management-service/googleimportjob.md) instance, [choose the Google Ads account and campaigns](#choose-google-campaigns) that you want to import, [choose import options](#import-options) e.g., the entities that you want to import, and then call the [AddImportJobs](../campaign-management-service/addimportjobs.md) operation to [schedule the import](#import-schedule). See the sections below for more details. 
 
