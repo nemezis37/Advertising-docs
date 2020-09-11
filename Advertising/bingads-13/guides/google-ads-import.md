@@ -103,6 +103,39 @@ You can get import results via the [GetImportResults](../campaign-management-ser
 
 For more details about what does and doesn't get imported from Google Ads, see [What gets imported](https://help.ads.microsoft.com/#apex/3/en/50851/0). 
 
+## <a name="credential-scope"></a>Credential ID Scope
+
+Each import credential ID is valid only for importing into ad accounts under the same manager account (customer) by the same user. You can import any Google Ads account permitted via the Google account credentials. 
+
+This does not necessarily mean that you can import into any ad accounts that you can view in your manager account's hierarchy. In case an account is linked from another manager account for example, please take note of the account "Owner" when you get the import credential ID. The same user could import the same Google Ads account to any sibling ad account that is owned by the same parent manager account.
+
+If either the Microsoft Advertising user, Google account credentials, or "Owner" varies or changes, then you'll need to use a different import credential ID.  
+
+### <a name="microsoft-credentials"></a>Microsoft Advertising User Credentials
+
+When you [get an Import credential ID](#get-credentialid) you will sign in to Microsoft Advertising and navigate to the ad account where you want to import Google Ads campaigns. You must sign in and get an import credential ID with the same user credentials that will be used later when you [schedule the import](#import-schedule) via the [AddImportJobs](../campaign-management-service/addimportjobs.md) operation. 
+
+The import credential ID would be invalid if you attempt to call [AddImportJobs](../campaign-management-service/addimportjobs.md) with the access token of any other user. 
+
+### <a name="google-credentials"></a>Google Ads User Credentials
+
+When you [get an Import credential ID](#get-credentialid) you will sign in with your Google account credentials. Be sure the Google user has access to the Google Ads account that you want to import from. 
+
+The import credential ID would be invalid if you make any of the following changes. 
+- Access to the Google Ads account is removed in Google Ads. 
+- You remove Microsoft Advertising's access for the Google user credentials e.g., via Google's [Third-party apps with account access](https://myaccount.google.com/permissions) settings. Even if you grant access again via Microsoft Advertising, a new credential ID will be required to add new import jobs. 
+
+Please also note, changing your Google account password does not invalidate the credential ID. 
+
+### <a name="account-owner"></a>Account Owner
+
+Each account has an "owner" i.e., the parent customer or manager account. You can confirm the owner for each account via *Tools > Accounts > Accounts summary*. In the example below, "Manager Account L4" is the owner of "Ad Account 4A" and "Manager Account L3" is the owner of both "Ad Account 3A" and "Ad Account 3B". If you don't see the "Owner" you can add this detail by modifying the set of columns displayed. 
+
+![Account Owner](media/account-owner.png "Account Owner")
+
+You can use the same import credential ID to import any account under the same manager account. In the example above if we navigate to "Ad Account 3A" and request a credential ID, it can be used for import into both "Ad Account 3A" and "Ad Account 3B". This credential ID cannot be used to add an import job for "Ad Account 4A". Likewise, if we navigate to "Ad Account 4A" and request a credential ID, it can only be used for imports into "Ad Account 4A". Having said that, if new accounts are later added under "Manager Account L4", we could use the same import credential ID already provisioned. 
+
+How can you confirm the owner for accounts that you can access? When you [get an Import credential ID](#get-credentialid) you will sign in to Microsoft Advertising and navigate to the ad account where you want to import Google Ads campaigns. Now take note of the manager account ID (aka customer ID) in the URL where you navigated. You should see "cid=CustomerIdHere". For more information about the accounts a user can access, see [Get Your Account and Customer IDs](get-started.md#get-ids). 
 
 ## See Also
 [Bing Ads API Web Service Addresses](web-service-addresses.md)  
